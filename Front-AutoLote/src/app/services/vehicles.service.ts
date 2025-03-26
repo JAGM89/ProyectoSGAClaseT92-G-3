@@ -6,17 +6,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class VehicleService {
-  private apiUrl = 'http://localhost:3000/api/vehiculos';  // URL de la API para vehículos
+  private apiUrl = 'http://localhost:3001/api/vehiculos-disponibles';  // URL de la API para vehículos
 
   constructor(private http: HttpClient) {}
 
   getVehicles(): Observable<any> {
-    const token = localStorage.getItem('token');
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}` // Agrega el token en el header
-    });
-
-    return this.http.get(this.apiUrl, { headers });
+    return this.http.get<any[]>(this.apiUrl);
   }
 }

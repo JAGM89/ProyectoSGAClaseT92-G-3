@@ -9,10 +9,10 @@
       <th>Anio</th>
       <th>Precio</th>
       <th>Disponibilidad</th>
-      <th>Descripción</th>
     </tr>
   </thead>
   <tbody>
+    <tr *ngIf="vehicles && vehicles.length > 0">
     <tr *ngFor="let vehicle of vehicles">
       <td>{{ vehicle.id_vehiculo }}</td>
       <td>{{ vehicle.marca }}</td>
@@ -20,7 +20,7 @@
       <td>{{ vehicle.anio }}</td>
       <td>{{ vehicle.precio }}</td>
       <td>{{ vehicle.disponibilidad ? 'Disponible' : 'No disponible' }}</td>
-      <td>{{ vehicle.descripcion }}</td>
+      
     </tr>
   </tbody>
 </table>

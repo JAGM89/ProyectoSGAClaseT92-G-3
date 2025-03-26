@@ -15,7 +15,7 @@ export class VehiclesComponent implements OnInit {
 
   constructor(private vehicleService: VehicleService) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.loadVehicles();
   }
 
@@ -23,7 +23,12 @@ export class VehiclesComponent implements OnInit {
    loadVehicles() {
     this.vehicleService.getVehicles().subscribe({
       next: (data) => {
-        this.vehicles = data;
+        console.log('Respuesta de la API:', data); // Verifica la estructura de los datos
+        if (data && data.vehiculos) {
+          this.vehicles = data.vehiculos;
+        } else {
+          this.vehicles = []; // Si no hay 'vehiculos', inicializa con un array vacío
+        }
       },
       error: (error) => {
         this.errorMessage = 'Ocurrió un error al cargar los vehículos.';

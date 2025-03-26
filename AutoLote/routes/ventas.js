@@ -26,6 +26,17 @@ router.post('/ventas', authMiddleware, (req, res) => {
       LIMIT 1;
   `;
 
+  const sqlUpdate = `
+   UPDATE vehiculos 
+   SET disponibilidad = FALSE 
+   WHERE id_vehiculo = (
+       SELECT id_vehiculo 
+       FROM ventas 
+       ORDER BY fecha_venta DESC 
+       LIMIT 1
+   );
+`;
+
   pool.query(sql, [id_cliente, id_vendedor], (err, results) => {
       if (err) {
           console.log(err);
@@ -35,8 +46,18 @@ router.post('/ventas', authMiddleware, (req, res) => {
       if (results.affectedRows === 0) {
           return res.status(400).json({ status: 400, message: 'No hay vehículos disponibles.' });
       }
+      pool.query(sqlUpdate, (err, updateResults) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).json({ status: 500, message: 'Error al actualizar la disponibilidad del vehículo.' });
+        }
 
-      res.status(201).json({ status: 201, message: 'Venta registrada con éxito.', venta_id: results.insertId });
+        res.status(201).json({ 
+            status: 201, 
+            message: 'Venta registrada con éxito y disponibilidad del vehículo actualizada.', 
+            venta_id: results.insertId 
+        });
+    });
   });
 });
 

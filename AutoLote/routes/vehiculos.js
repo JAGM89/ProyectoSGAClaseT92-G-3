@@ -3,28 +3,67 @@ const router = express.Router();
 const pool = require('../config/db');
 const authMiddleware = require('../middleware/authMiddleware');
 
+router.get('/vehiculos-disponibles', (req, res) => {
+  const sql = `
+    SELECT 
+      v.id_vehiculo,
+      v.marca,
+      v.modelo,
+      v.anio,
+      v.precio,
+      v.fecha_publicacion
+    FROM vehiculos v
+    WHERE v.disponibilidad = TRUE
+    ORDER BY v.fecha_publicacion ASC;
+  `;
 
-
-
-
-router.post('/vehiculos',authMiddleware,(req, res)=>{
-    let vehiculo = req.body;
-
-    if(!vehiculo.marca || !vehiculo.modelo || !vehiculo.año || !vehiculo.precio || !vehiculo.descripcion){
-        return res.status(403).json({status:403,message:'Todos los campos son requeridos...'});
+  pool.query(sql, (err, results) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json({ status: 500, message: 'Error al consultar los vehículos.' });
     }
-    
-    const sql ="INSERT INTO vehiculos (marca,modelo,año,precio,descripcion) VALUES(?,?,?,?,?)";
-    pool.query(sql,[vehiculo.marca,vehiculo.modelo,vehiculo.año,vehiculo.precio,vehiculo.descripcion],(err, results)=>{
-        if(err){
-            console.log(err);
-            return res.status(500).json({status:500,message:'Error al insertar el registro...'});
-        }
-        vehiculo.codigo = results.insertId;
-        res.status(201).json({status:201,message:'Success',vehiculo});        
-    });
 
+    if (results.length === 0) {
+      return res.status(404).json({ status: 404, message: 'No hay vehículos disponibles.' });
+    }
+
+    res.status(200).json({ status: 200, message: 'Vehículo disponible', vehiculos: results });
+  });
 });
 
+router.post('/vehiculos', (req, res) => {
+    const { marca, modelo, anio, precio, disponibilidad, descripcion } = req.body;
+  
+  
+    if (!req.body || !marca || !modelo || anio == null || precio == null) {
+      return res.status(400).json({ status: 400, message: 'Faltan campos obligatorios.' });
+    }
+  
+    const sql = `
+      INSERT INTO vehiculos (marca, modelo, anio, precio, disponibilidad, descripcion)
+      VALUES (?, ?, ?, ?, ?, ?)
+    `;
+  
+    const values = [marca, modelo, anio, precio, disponibilidad ?? true, descripcion ?? null];
+  
+    pool.query(sql, values, (err, result) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ status: 500, message: 'Error al registrar el vehículo.' });
+      }
+  
+      res.status(201).json({ status: 201, message: 'Vehículo registrado correctamente.' });
+    });
+  });
+
+  router.delete('/vehiculos/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `DELETE FROM vehiculos WHERE id_vehiculo = ?`;
+  
+    pool.query(sql, [id], (err, result) => {
+      if (err) return res.status(500).json({ status: 500, message: 'Error al eliminar.' });
+      res.status(200).json({ status: 200, message: 'Vehículo eliminado.' });
+    });
+  });
 
 module.exports = router;

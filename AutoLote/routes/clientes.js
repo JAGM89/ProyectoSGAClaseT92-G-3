@@ -4,7 +4,7 @@ const pool = require('../config/db');
 const authMiddleware = require('../middleware/authMiddleware');
 
 // Registrar nuevo cliente
-router.post('/clientes', authMiddleware, (req, res) => {
+router.post('/clientes', (req, res) => {
   const { nombre, correo, telefono } = req.body;
 
   if (!nombre || !correo || !telefono) {
@@ -27,7 +27,7 @@ router.post('/clientes', authMiddleware, (req, res) => {
 });
 
 // Guardar consulta o solicitud de prueba
-router.post('/clientes/consulta', authMiddleware, (req, res) => {
+router.post('/clientes/consulta', (req, res) => {
   const { id_cliente, tipo_consulta, mensaje } = req.body;
 
   if (!id_cliente || !tipo_consulta) {
@@ -50,7 +50,7 @@ router.post('/clientes/consulta', authMiddleware, (req, res) => {
 });
 
 // Obtener historial de consultas de un cliente
-router.get('/clientes/:id_cliente/consultas', authMiddleware, (req, res) => {
+router.get('/clientes/:id_cliente/consultas', (req, res) => {
   const { id_cliente } = req.params;
 
   const sql = `

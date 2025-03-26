@@ -1,0 +1,43 @@
+<h2>Lista de Vehículos</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Codigo</th>
+      <th>Marca</th>
+      <th>Modelo</th>
+      <th>Anio</th>
+      <th>Precio</th>
+      <th>Disponibilidad</th>
+      <th>Descripción</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let vehicle of vehicles">
+      <td>{{ vehicle.id_vehiculo }}</td>
+      <td>{{ vehicle.marca }}</td>
+      <td>{{ vehicle.modelo }}</td>
+      <td>{{ vehicle.anio }}</td>
+      <td>{{ vehicle.precio }}</td>
+      <td>{{ vehicle.disponibilidad ? 'Disponible' : 'No disponible' }}</td>
+      <td>{{ vehicle.descripcion }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="vehicles.length === 0">No hay vehículos disponibles.</p>
+
+<!-- Botones de acción -->
+<div class="action-buttons">
+  <button (click)="addVehicle()" class="btn btn-success">Agregar Vehículo</button>
+  <button (click)="editVehicle()" class="btn btn-warning">Editar Vehículo</button>
+  <button (click)="deleteVehicle()" class="btn btn-danger">Eliminar Vehículo</button>
+</div>
+
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
+
+<div *ngIf="successMessage" class="success-message">
+  {{ successMessage }}
+</div>

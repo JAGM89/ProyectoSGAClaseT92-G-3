@@ -26,6 +26,17 @@ router.post('/ventas', authMiddleware, (req, res) => {
       LIMIT 1;
   `;
 
+  const sqlUpdate = `
+   UPDATE vehiculos 
+   SET disponibilidad = FALSE 
+   WHERE id_vehiculo = (
+       SELECT id_vehiculo 
+       FROM ventas 
+       ORDER BY fecha_venta DESC 
+       LIMIT 1
+   );
+`;
+
   pool.query(sql, [id_cliente, id_vendedor], (err, results) => {
       if (err) {
           console.log(err);

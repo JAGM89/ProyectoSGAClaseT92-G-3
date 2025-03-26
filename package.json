@@ -1,13 +1,19 @@
 {
+  "name": "autolote-backend",
+  "version": "1.0.0",
+  "description": "API para gestión de autolote",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
   "dependencies": {
-<<<<<<< Updated upstream
     "axios": "^1.8.4",
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "mysql2": "^3.14.0"
-=======
-    "mysql2": "^3.14.0",
+  },
+  "devDependencies": {
     "nodemon": "^3.1.9"
->>>>>>> Stashed changes
   }
 }

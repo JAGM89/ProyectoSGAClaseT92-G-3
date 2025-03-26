@@ -66,4 +66,17 @@ router.post('/vehiculos', (req, res) => {
     });
   });
 
+  router.get('/vehiculos', (req, res) => {
+    const sql = `SELECT * FROM vehiculos ORDER BY fecha_publicacion DESC`;
+  
+    pool.query(sql, (err, results) => {
+      if (err) {
+        console.error(" Error al obtener vehículos:", err);
+        return res.status(500).json({ status: 500, message: 'Error al obtener vehículos.' });
+      }
+  
+      res.status(200).json({ status: 200, vehiculos: results });
+    });
+  });
+
 module.exports = router;

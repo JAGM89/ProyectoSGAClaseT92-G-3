@@ -11,13 +11,12 @@ const ventasRouter = require('./routes/ventas');
 
 
 
-//const ventaRoutes=require('./routes/ventas');
 
+//const ventaRoutes=require('./routes/ventas');
 app.use(express.json());
 app.use('/api',vehiculoRoutes);
-app.use('/api',clientesRoutes);
+app.use('/api',clientesRoutes); // Api de clientes
 app.use('/api', ventasRouter);
-
 //app.use('/api',ventaRoutes);
 
 

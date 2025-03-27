@@ -31,7 +31,7 @@ export class LoginComponent {
       next: (response) => {
         console.log('Login exitoso:', response);
         localStorage.setItem('token', response.token);
-        this.router.navigate(['/home']);
+        this.router.navigate(['/vehicles']);
       },
       error: (error) => {
         console.error('Error de login:', error);

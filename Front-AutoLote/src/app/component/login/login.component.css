@@ -1,50 +1,58 @@
 /* Estilos del contenedor principal */
 .login-container {
-    max-width: 350px;
-    margin: 100px auto;
-    padding: 20px;
-    background: #ffffff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    text-align: center;
-  }
-  
-  /* Título */
-  .login-container h2 {
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  /* Inputs */
-  .login-container input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  /* Botón */
-  .login-container button {
-    width: 100%;
-    padding: 10px;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  
-  .login-container button:hover {
-    background: #0056b3;
-  }
-  
-  /* Mensaje de error */
-  .error-message {
-    color: red;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 20px;
-  }
-  
+  max-width: 400px; /* Aumentamos un poco el tamaño */
+  margin: 100px auto;
+  padding: 30px;
+  background: #ffffff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Más profundidad en la sombra */
+  border-radius: 15px; /* Bordes más redondeados */
+  text-align: center;
+  font-family: 'Roboto', sans-serif; /* Fuente moderna */
+}
+
+/* Título */
+.login-container h2 {
+  margin-bottom: 30px;
+  color: #333;
+  font-size: 24px; /* Tamaño de fuente ligeramente mayor */
+  font-weight: 500;
+}
+
+/* Inputs */
+.login-container input {
+  width: 100%;
+  padding: 12px 15px; /* Espaciado mejorado */
+  margin: 15px 0;
+  border: 1px solid #ddd; /* Cambio a un gris más suave */
+  border-radius: 8px; /* Bordes más redondeados */
+  background-color: #f9f9f9; /* Fondo de los inputs más suave */
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.login-container input:focus {
+  border-color: #007bff; /* Bordes azules cuando el input esté enfocado */
+  outline: none;
+  background-color: #fff; /* Fondo blanco al hacer foco */
+}
+
+/* Botón */
+.login-container button {
+  width: 100%;
+  padding: 12px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px; /* Bordes redondeados */
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease, transform 0.2s ease; /* Efecto de transformación */
+}
+
+.login-container button:hover {
+  background: #0056b3;
+  transform: translateY(-2px); /* Botón con efecto de desplazamiento */
+}
+
+.login-container button:active {
+  background: #004085; }
